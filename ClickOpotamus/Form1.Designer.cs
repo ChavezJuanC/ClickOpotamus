@@ -30,13 +30,13 @@
         {
             this.MainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.TopTableLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.BottomTabelLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.ShowLogLabel = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
             this.ClickCounterLabel = new System.Windows.Forms.Label();
             this.StartButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.ShowLogLabel = new System.Windows.Forms.Label();
+            this.BottomTabelLayout = new System.Windows.Forms.TableLayoutPanel();
             this.MainTableLayout.SuspendLayout();
             this.TopTableLayout.SuspendLayout();
             this.SuspendLayout();
@@ -82,19 +82,18 @@
             this.TopTableLayout.Size = new System.Drawing.Size(528, 224);
             this.TopTableLayout.TabIndex = 0;
             // 
-            // BottomTabelLayout
+            // ShowLogLabel
             // 
-            this.BottomTabelLayout.ColumnCount = 2;
-            this.BottomTabelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.BottomTabelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.BottomTabelLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BottomTabelLayout.Location = new System.Drawing.Point(3, 233);
-            this.BottomTabelLayout.Name = "BottomTabelLayout";
-            this.BottomTabelLayout.RowCount = 1;
-            this.BottomTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.BottomTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.BottomTabelLayout.Size = new System.Drawing.Size(528, 225);
-            this.BottomTabelLayout.TabIndex = 1;
+            this.ShowLogLabel.AutoSize = true;
+            this.TopTableLayout.SetColumnSpan(this.ShowLogLabel, 5);
+            this.ShowLogLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ShowLogLabel.Location = new System.Drawing.Point(3, 168);
+            this.ShowLogLabel.Name = "ShowLogLabel";
+            this.ShowLogLabel.Size = new System.Drawing.Size(522, 56);
+            this.ShowLogLabel.TabIndex = 0;
+            this.ShowLogLabel.Text = "Show Log";
+            this.ShowLogLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ShowLogLabel.Click += new System.EventHandler(this.ShowLogLabel_Click);
             // 
             // TitleLabel
             // 
@@ -128,6 +127,7 @@
             this.StartButton.TabIndex = 2;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // StopButton
             // 
@@ -138,6 +138,7 @@
             this.StopButton.TabIndex = 3;
             this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
             // SaveButton
             // 
@@ -148,19 +149,21 @@
             this.SaveButton.TabIndex = 4;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // ShowLogLabel
+            // BottomTabelLayout
             // 
-            this.ShowLogLabel.AutoSize = true;
-            this.TopTableLayout.SetColumnSpan(this.ShowLogLabel, 5);
-            this.ShowLogLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ShowLogLabel.Location = new System.Drawing.Point(3, 168);
-            this.ShowLogLabel.Name = "ShowLogLabel";
-            this.ShowLogLabel.Size = new System.Drawing.Size(522, 56);
-            this.ShowLogLabel.TabIndex = 0;
-            this.ShowLogLabel.Text = "Show Log";
-            this.ShowLogLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ShowLogLabel.Click += new System.EventHandler(this.ShowLogLabel_Click);
+            this.BottomTabelLayout.ColumnCount = 2;
+            this.BottomTabelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.BottomTabelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.BottomTabelLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BottomTabelLayout.Location = new System.Drawing.Point(3, 233);
+            this.BottomTabelLayout.Name = "BottomTabelLayout";
+            this.BottomTabelLayout.RowCount = 1;
+            this.BottomTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.BottomTabelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 225F));
+            this.BottomTabelLayout.Size = new System.Drawing.Size(528, 225);
+            this.BottomTabelLayout.TabIndex = 1;
             // 
             // MainWindow
             // 

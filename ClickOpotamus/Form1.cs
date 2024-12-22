@@ -12,21 +12,27 @@ namespace ClickOpotamus
         private int _rightClickCount = 0;
         private int _leftClickCount = 0;
         private int _otherClicksCount = 0;
+        private int _totalMouseEvents = 0;
 
         //Dynamic GUI
         private bool _isFullSize = false;
 
+        //Timming 
+        private DateTime _startTime = new DateTime();
+        private DateTime _endTime = new DateTime();
+
+
         //ClickLog Stuct
         private struct ClickLog
         {
-            private int Total;
-            private int LeftClicks;
-            private int RightClicks;
-            private float MinAverage;
-            private float HourAverage;
-            private string StartTime;
-            private string EndTime;//This should be of a better type!
-            private float SessionDuration; //in seconds
+            public int Total;
+            public int LeftClicks;
+            public int RightClicks;
+            public float MinAverage;
+            public float HourAverage;
+            public string StartTime;
+            public string EndTime;
+            public float SessionDuration;
         }
 
         // Init //
@@ -37,15 +43,25 @@ namespace ClickOpotamus
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            Subscribe();
             ResetWindow();
+
+            //Disable stop and save
+            StopButton.Enabled = false;
+            SaveButton.Enabled = false;
+
+            ResetCounts();
+
         }
 
         // Mouse Tracking //
         private void Subscribe()
         {
             _globalHook = Hook.GlobalEvents();
-            ListenForMouseEvents();
+        }
+
+        private void UnSubscribe()
+        {
+            _globalHook.Dispose();
         }
 
         private void ListenForMouseEvents()
@@ -71,6 +87,47 @@ namespace ClickOpotamus
                 _otherClicksCount++;
                 Console.WriteLine($"Other: {_otherClicksCount}");
             }
+
+            SetNewCountText(_rightClickCount, _leftClickCount, _otherClicksCount);
+        }
+
+        private void SetNewCountText(int r, int l, int o)
+        {
+            ClickCounterLabel.Text = $"{AddMouseEvents(r, l, o).ToString()} Clicks";
+        }
+
+        private int AddMouseEvents(int r, int l, int o)
+        {
+            _totalMouseEvents = _rightClickCount + _leftClickCount + _otherClicksCount;
+            return _totalMouseEvents;
+        }
+
+        private void ResetCounts()
+        {
+            ClickCounterLabel.Text = "0 Clicks";
+            _totalMouseEvents = 0;
+            _rightClickCount = 0;
+            _leftClickCount = 0;
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            _startTime = DateTime.Now;
+            Subscribe();
+            ResetCounts();
+            ListenForMouseEvents();
+            StartButton.Enabled = false;
+            SaveButton.Enabled = false;
+            StopButton.Enabled = true;
+        }
+
+        private void StopButton_Click(object sender, EventArgs e)
+        {
+            _endTime = DateTime.Now;
+            UnSubscribe();
+            StopButton.Enabled = false;
+            StartButton.Enabled = true;
+            SaveButton.Enabled = true;
         }
 
         // Window Resizing //
@@ -124,6 +181,34 @@ namespace ClickOpotamus
         {
             ResizeApp();
         }
+
+        // Saving to Log //
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            SaveButton.Enabled = false;
+            StopButton.Enabled = false;
+            StartButton.Enabled = true;
+
+            ClickLog log = FormatClickLog();
+            Console.WriteLine($"Total: {log.Total}");
+            Console.WriteLine($"RightClicks: {log.RightClicks}");
+            Console.WriteLine($"LeftClicks: {log.LeftClicks}");
+        }
+        private ClickLog FormatClickLog()
+        {
+            ClickLog log = new ClickLog
+            {
+                Total = _totalMouseEvents,
+                LeftClicks = _leftClickCount,
+                RightClicks = _rightClickCount,
+                MinAverage = _totalMouseEvents / 60f,
+                HourAverage = _totalMouseEvents / 3600f,
+                StartTime = _startTime.ToString("MM/dd/yy HH:mm:ss"),
+                EndTime = _endTime.ToString("MM/dd/yy HH:mm:ss"),
+                SessionDuration = _totalMouseEvents
+            };
+            return log;
+        }
     }
 }
 
@@ -131,8 +216,6 @@ namespace ClickOpotamus
  
 Next steps
 
--Implement GUI counter
--Implement Button enable/diable relations
 -Implement Save Log into console (Total: Average: L: R: TimeStamp: ) // use struct!!
 
 -implement Bottom Section GUI Layout
