@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.MainTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.TopTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ShowLogLabel = new System.Windows.Forms.Label();
@@ -87,6 +88,7 @@
             this.ShowLogLabel.AutoSize = true;
             this.TopTableLayout.SetColumnSpan(this.ShowLogLabel, 5);
             this.ShowLogLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ShowLogLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(233)))), ((int)(((byte)(251)))));
             this.ShowLogLabel.Location = new System.Drawing.Point(3, 168);
             this.ShowLogLabel.Name = "ShowLogLabel";
             this.ShowLogLabel.Size = new System.Drawing.Size(522, 56);
@@ -100,8 +102,11 @@
             this.TitleLabel.AutoSize = true;
             this.TopTableLayout.SetColumnSpan(this.TitleLabel, 5);
             this.TitleLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TitleLabel.Font = new System.Drawing.Font("Ink Free", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(233)))), ((int)(((byte)(251)))));
             this.TitleLabel.Location = new System.Drawing.Point(3, 0);
             this.TitleLabel.Name = "TitleLabel";
+            this.TitleLabel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
             this.TitleLabel.Size = new System.Drawing.Size(522, 56);
             this.TitleLabel.TabIndex = 0;
             this.TitleLabel.Text = "Click O\' Potamus Mouse Tracker";
@@ -110,10 +115,14 @@
             // ClickCounterLabel
             // 
             this.ClickCounterLabel.AutoSize = true;
+            this.ClickCounterLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(139)))), ((int)(((byte)(149)))));
             this.TopTableLayout.SetColumnSpan(this.ClickCounterLabel, 5);
             this.ClickCounterLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ClickCounterLabel.Font = new System.Drawing.Font("Noto Kufi Arabic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClickCounterLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
             this.ClickCounterLabel.Location = new System.Drawing.Point(3, 56);
             this.ClickCounterLabel.Name = "ClickCounterLabel";
+            this.ClickCounterLabel.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.ClickCounterLabel.Size = new System.Drawing.Size(522, 56);
             this.ClickCounterLabel.TabIndex = 1;
             this.ClickCounterLabel.Text = "X Clicks";
@@ -121,7 +130,8 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(108, 115);
+            this.StartButton.Location = new System.Drawing.Point(108, 127);
+            this.StartButton.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(75, 23);
             this.StartButton.TabIndex = 2;
@@ -132,7 +142,8 @@
             // StopButton
             // 
             this.StopButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.StopButton.Location = new System.Drawing.Point(225, 115);
+            this.StopButton.Location = new System.Drawing.Point(225, 127);
+            this.StopButton.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 23);
             this.StopButton.TabIndex = 3;
@@ -143,7 +154,8 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(342, 115);
+            this.SaveButton.Location = new System.Drawing.Point(342, 127);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 4;
@@ -169,8 +181,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(139)))), ((int)(((byte)(149)))));
             this.ClientSize = new System.Drawing.Size(534, 461);
             this.Controls.Add(this.MainTableLayout);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
             this.Text = "ClickOpotamus";
             this.Load += new System.EventHandler(this.MainWindow_Load);

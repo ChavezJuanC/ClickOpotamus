@@ -48,7 +48,6 @@ namespace ClickOpotamus
             //Disable stop and save
             StopButton.Enabled = false;
             SaveButton.Enabled = false;
-
             ResetCounts();
 
         }
@@ -75,25 +74,22 @@ namespace ClickOpotamus
             if (e.Button.ToString() == "Right")
             {
                 _rightClickCount++;
-                Console.WriteLine($"Right: {_rightClickCount}");
             }
             else if (e.Button.ToString() == "Left")
             {
                 _leftClickCount++;
-                Console.WriteLine($"Left: {_leftClickCount}");
             }
             else
             {
                 _otherClicksCount++;
-                Console.WriteLine($"Other: {_otherClicksCount}");
             }
 
             SetNewCountText(_rightClickCount, _leftClickCount, _otherClicksCount);
         }
 
-        private void SetNewCountText(int r, int l, int o)
+        private void SetNewCountText(int rightClicks, int leftClicks, int otherClicks)
         {
-            ClickCounterLabel.Text = $"{AddMouseEvents(r, l, o).ToString()} Clicks";
+            ClickCounterLabel.Text = $"{AddMouseEvents(rightClicks, leftClicks, otherClicks).ToString()} Clicks";
         }
 
         private int AddMouseEvents(int r, int l, int o)
@@ -148,9 +144,10 @@ namespace ClickOpotamus
         private void ResetWindow()
         {
             Size minSize = new System.Drawing.Size(550, 250);
+            Size maxSize = new System.Drawing.Size(660, 320);
             this.MinimumSize = minSize;
+            this.MaximumSize = maxSize;
             this.Size = minSize;
-            this.MaximumSize = new System.Drawing.Size(660, 320);
             _isFullSize = false;
             RefactorLayout();
         }
@@ -158,9 +155,10 @@ namespace ClickOpotamus
         private void ExpandWindow()
         {
             Size minSize = new System.Drawing.Size(550, 500);
+            Size maxSize = new System.Drawing.Size(660, 600);
             this.MinimumSize = minSize;
+            this.MaximumSize = maxSize;
             this.Size = minSize;
-            this.MaximumSize = new System.Drawing.Size(660, 600);
             _isFullSize = true;
             RefactorLayout();
         }
@@ -216,11 +214,12 @@ namespace ClickOpotamus
  
 Next steps
 
--Implement Save Log into console (Total: Average: L: R: TimeStamp: ) // use struct!!
+Style
 
+-Draw out bottom section design
 -implement Bottom Section GUI Layout
--Feed Labels on STOP
--If saved, feed log to Log File.
+-Feed Labels on STOP (right side)
+-If saved, feed log to Log File. (left side)
 
 -Implement LogFile display section with mock Data
 -On Load -- Read from file and upate GUI
