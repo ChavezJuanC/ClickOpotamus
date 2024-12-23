@@ -84,15 +84,15 @@ namespace ClickOpotamus
                 _otherClicksCount++;
             }
 
-            SetNewCountText(_rightClickCount, _leftClickCount, _otherClicksCount);
+            SetNewCountText();
         }
 
-        private void SetNewCountText(int rightClicks, int leftClicks, int otherClicks)
+        private void SetNewCountText()
         {
-            ClickCounterLabel.Text = $"{AddMouseEvents(rightClicks, leftClicks, otherClicks).ToString()} Clicks";
+            ClickCounterLabel.Text = $"{AddMouseEvents()} Clicks";
         }
 
-        private int AddMouseEvents(int r, int l, int o)
+        private int AddMouseEvents()
         {
             _totalMouseEvents = _rightClickCount + _leftClickCount + _otherClicksCount;
             return _totalMouseEvents;
@@ -214,15 +214,21 @@ namespace ClickOpotamus
  
 Next steps
 
+Instanciate Logger obj and use its functions for write to a file on log.
+
 Style
 
 -Draw out bottom section design
 -implement Bottom Section GUI Layout
+-allow opening of log file or atleast link to location
 -Feed Labels on STOP (right side)
 -If saved, feed log to Log File. (left side)
+
 
 -Implement LogFile display section with mock Data
 -On Load -- Read from file and upate GUI
 -On Save -- Also read from file to update.. (async??)
 
+
  */
+
