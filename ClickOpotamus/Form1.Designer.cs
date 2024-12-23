@@ -86,9 +86,10 @@
             // ShowLogLabel
             // 
             this.ShowLogLabel.AutoSize = true;
+            this.ShowLogLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(202)))), ((int)(((byte)(206)))));
             this.TopTableLayout.SetColumnSpan(this.ShowLogLabel, 5);
             this.ShowLogLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ShowLogLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(233)))), ((int)(((byte)(251)))));
+            this.ShowLogLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.ShowLogLabel.Location = new System.Drawing.Point(3, 168);
             this.ShowLogLabel.Name = "ShowLogLabel";
             this.ShowLogLabel.Size = new System.Drawing.Size(522, 56);
@@ -103,7 +104,7 @@
             this.TopTableLayout.SetColumnSpan(this.TitleLabel, 5);
             this.TitleLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TitleLabel.Font = new System.Drawing.Font("Ink Free", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(233)))), ((int)(((byte)(251)))));
+            this.TitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.TitleLabel.Location = new System.Drawing.Point(3, 0);
             this.TitleLabel.Name = "TitleLabel";
             this.TitleLabel.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
@@ -115,11 +116,11 @@
             // ClickCounterLabel
             // 
             this.ClickCounterLabel.AutoSize = true;
-            this.ClickCounterLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(139)))), ((int)(((byte)(149)))));
+            this.ClickCounterLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(202)))), ((int)(((byte)(206)))));
             this.TopTableLayout.SetColumnSpan(this.ClickCounterLabel, 5);
             this.ClickCounterLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClickCounterLabel.Font = new System.Drawing.Font("Noto Kufi Arabic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClickCounterLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
+            this.ClickCounterLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.ClickCounterLabel.Location = new System.Drawing.Point(3, 56);
             this.ClickCounterLabel.Name = "ClickCounterLabel";
             this.ClickCounterLabel.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
@@ -130,37 +131,43 @@
             // 
             // StartButton
             // 
+            this.StartButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.StartButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.StartButton.Location = new System.Drawing.Point(108, 127);
             this.StartButton.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(75, 23);
+            this.StartButton.Size = new System.Drawing.Size(75, 30);
             this.StartButton.TabIndex = 2;
             this.StartButton.Text = "Start";
-            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.UseVisualStyleBackColor = false;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // StopButton
             // 
             this.StopButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.StopButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.StopButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.StopButton.Location = new System.Drawing.Point(225, 127);
             this.StopButton.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(75, 23);
+            this.StopButton.Size = new System.Drawing.Size(75, 30);
             this.StopButton.TabIndex = 3;
             this.StopButton.Text = "Stop";
-            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.UseVisualStyleBackColor = false;
             this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.SaveButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.SaveButton.Location = new System.Drawing.Point(342, 127);
             this.SaveButton.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.Size = new System.Drawing.Size(75, 30);
             this.SaveButton.TabIndex = 4;
             this.SaveButton.Text = "Save";
-            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.UseVisualStyleBackColor = false;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // BottomTabelLayout
@@ -181,7 +188,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(139)))), ((int)(((byte)(149)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(202)))), ((int)(((byte)(206)))));
             this.ClientSize = new System.Drawing.Size(534, 461);
             this.Controls.Add(this.MainTableLayout);
             this.ForeColor = System.Drawing.SystemColors.ControlText;

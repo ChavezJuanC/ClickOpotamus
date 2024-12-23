@@ -9,14 +9,13 @@ namespace ClickOpotamus.Libraries
     {
         public struct ClickLog
         {
-            public int Total;
-            public int LeftClicks;
-            public int RightClicks;
-            public float MinAverage;
-            public float HourAverage;
-            public string StartTime;
-            public string EndTime;
-            public float SessionDuration;
+            public int Total { get; set; }
+            public int LeftClicks { get; set; }
+            public int RightClicks { get; set; }
+            public float MinAverage { get; set; }
+            public float HourAverage { get; set; }
+            public string StartTime { get; set; }
+            public string EndTime { get; set; }
         }
 
         //read-only file path for security
@@ -29,28 +28,30 @@ namespace ClickOpotamus.Libraries
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(_fileName));
                 File.WriteAllText(_fileName, "[]"); // Initialize with an empty JSON array
-                Console.WriteLine("File created.");
             }
         }
 
         public void AppendToFile(ClickLog log)
         {
             EnsureFileExists();
-
             List<ClickLog> dataList;
 
-            // Read existing data
-            string existingData = File.ReadAllText(_fileName);
-            dataList = JsonSerializer.Deserialize<List<ClickLog>>(existingData) ?? new List<ClickLog>();
+            try
+            {
+                // Read existing data
+                string existingData = File.ReadAllText(_fileName);
+                dataList = JsonSerializer.Deserialize<List<ClickLog>>(existingData) ?? new List<ClickLog>();
 
-            // Add the new entry //This is a mock entry but you would send your struct here.. maybe pass it as a param...
-            dataList.Add(log);
+                dataList.Add(log);
 
-            // Serialize and overwrite the file
-            string jsonData = JsonSerializer.Serialize(dataList, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(_fileName, jsonData);
-
-            Console.WriteLine("Logged!");
+                // Serialize and overwrite the file
+                string jsonData = JsonSerializer.Serialize(dataList, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(_fileName, jsonData);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Error during deserialization: {ex.Message}");
+            }
         }
     }
 }

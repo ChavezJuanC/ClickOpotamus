@@ -1,6 +1,8 @@
-﻿using Gma.System.MouseKeyHook;
+﻿using ClickOpotamus.Libraries;
+using Gma.System.MouseKeyHook;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ClickOpotamus
@@ -13,6 +15,7 @@ namespace ClickOpotamus
         private int _leftClickCount = 0;
         private int _otherClicksCount = 0;
         private int _totalMouseEvents = 0;
+        private Logger _fileLogger = new Logger();
 
         //Dynamic GUI
         private bool _isFullSize = false;
@@ -20,20 +23,6 @@ namespace ClickOpotamus
         //Timming 
         private DateTime _startTime = new DateTime();
         private DateTime _endTime = new DateTime();
-
-
-        //ClickLog Stuct
-        private struct ClickLog
-        {
-            public int Total;
-            public int LeftClicks;
-            public int RightClicks;
-            public float MinAverage;
-            public float HourAverage;
-            public string StartTime;
-            public string EndTime;
-            public float SessionDuration;
-        }
 
         // Init //
         public MainWindow()
@@ -187,14 +176,24 @@ namespace ClickOpotamus
             StopButton.Enabled = false;
             StartButton.Enabled = true;
 
-            ClickLog log = FormatClickLog();
-            Console.WriteLine($"Total: {log.Total}");
-            Console.WriteLine($"RightClicks: {log.RightClicks}");
-            Console.WriteLine($"LeftClicks: {log.LeftClicks}");
+            var log = FormatClickLog();
+            Task.Run(() =>
+            {
+                _fileLogger.AppendToFile(new Logger.ClickLog
+                {
+                    Total = log.Total,
+                    LeftClicks = log.LeftClicks,
+                    RightClicks = log.RightClicks,
+                    MinAverage = log.MinAverage,
+                    HourAverage = log.HourAverage,
+                    StartTime = log.StartTime,
+                    EndTime = log.EndTime,
+                });
+            });
         }
-        private ClickLog FormatClickLog()
+        private Logger.ClickLog FormatClickLog()
         {
-            ClickLog log = new ClickLog
+            var log = new Logger.ClickLog
             {
                 Total = _totalMouseEvents,
                 LeftClicks = _leftClickCount,
@@ -203,7 +202,6 @@ namespace ClickOpotamus
                 HourAverage = _totalMouseEvents / 3600f,
                 StartTime = _startTime.ToString("MM/dd/yy HH:mm:ss"),
                 EndTime = _endTime.ToString("MM/dd/yy HH:mm:ss"),
-                SessionDuration = _totalMouseEvents
             };
             return log;
         }
@@ -213,8 +211,6 @@ namespace ClickOpotamus
 /*
  
 Next steps
-
-Instanciate Logger obj and use its functions for write to a file on log.
 
 Style
 
