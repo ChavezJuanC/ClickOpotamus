@@ -9,17 +9,20 @@ namespace ClickOpotamus.Libraries
     {
         public struct ClickLog
         {
+            public string StartTime { get; set; }
             public int Total { get; set; }
             public int LeftClicks { get; set; }
             public int RightClicks { get; set; }
             public float MinAverage { get; set; }
             public float HourAverage { get; set; }
-            public string StartTime { get; set; }
             public string EndTime { get; set; }
         }
 
         //read-only file path for security
-        private readonly string _fileName = Path.Combine("logs", "clickslog.json");
+        public readonly string _fileName = Path.Combine("logs", "clickslog.json");
+        public string existingData;
+        public List<ClickLog> dataList;
+
 
         //Check for file if it doesnt exist / Create it
         private void EnsureFileExists()
@@ -34,14 +37,11 @@ namespace ClickOpotamus.Libraries
         public void AppendToFile(ClickLog log)
         {
             EnsureFileExists();
-            List<ClickLog> dataList;
 
             try
             {
                 // Read existing data
-                string existingData = File.ReadAllText(_fileName);
-                dataList = JsonSerializer.Deserialize<List<ClickLog>>(existingData) ?? new List<ClickLog>();
-
+                UpdateLogList();
                 dataList.Add(log);
 
                 // Serialize and overwrite the file
@@ -51,6 +51,28 @@ namespace ClickOpotamus.Libraries
             catch (Exception ex)
             {
                 throw new InvalidOperationException($"Error during deserialization: {ex.Message}");
+            }
+        }
+
+        public void UpdateLogList()
+        {
+            existingData = File.ReadAllText(_fileName);
+            dataList = JsonSerializer.Deserialize<List<ClickLog>>(existingData) ?? new List<ClickLog>();
+        }
+
+        public void ClearLog()
+        {
+            try
+            {
+                existingData = "[]";
+                dataList = JsonSerializer.Deserialize<List<ClickLog>>(existingData) ?? new List<ClickLog>();
+                string jsonData = JsonSerializer.Serialize(dataList, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(_fileName, jsonData);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error Clearing Log: {e}");
             }
         }
     }

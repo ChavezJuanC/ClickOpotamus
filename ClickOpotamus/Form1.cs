@@ -1,6 +1,7 @@
 ﻿using ClickOpotamus.Libraries;
 using Gma.System.MouseKeyHook;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,7 +42,9 @@ namespace ClickOpotamus
             StopButton.Enabled = false;
             SaveButton.Enabled = false;
             ResetCounts();
-
+            ResetLogCard();
+            _fileLogger.UpdateLogList();
+            UpdateLogListGUI();
         }
 
         // Mouse Tracking //
@@ -100,6 +103,7 @@ namespace ClickOpotamus
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+            ResetLogCard();
             _startTime = DateTime.Now;
             Subscribe();
             ResetCounts();
@@ -129,23 +133,30 @@ namespace ClickOpotamus
             RightCountLbl.Text = _clickLog.RightClicks.ToString();
             MinAvgCountLbl.Text = _clickLog.MinAverage.ToString();
             HourAvgCountLbl.Text = _clickLog.HourAverage.ToString();
-
         }
 
-        /// <summary>
-        /// Write function here to reset the values of the LogCard
-        /// </summary>
+        private void ResetLogCard()
+        {
+            Label[] Label = {
+            TotalCountLbl,
+            LeftCountLbl,
+            RightCountLbl,
+            MinAvgCountLbl,
+            HourAvgCountLbl};
 
-        /// <summary>
-        /// Write Function Here to clear the log
-        /// </summary>
+            for (int i = 0; i < Label.Length; i++)
+            {
+                Label[i].Text = "00";
+            }
+        }
 
-        /// <summary>
-        /// Bind Labael to open file.. in a new tread maybe??
-        /// </summary>
-
-
-
+        private void OpenLogLbl_Click(object sender, EventArgs e)
+        {
+            Task.Run(() =>
+            {
+                Process.Start(_fileLogger._fileName);
+            });
+        }
 
         // Window Resizing //
         private void RefactorLayout()
@@ -176,7 +187,7 @@ namespace ClickOpotamus
         private void ExpandWindow()
         {
             Size minSize = new System.Drawing.Size(550, 500);
-            Size maxSize = new System.Drawing.Size(660, 600);
+            Size maxSize = new System.Drawing.Size(660, 500);
             this.MinimumSize = minSize;
             this.MaximumSize = maxSize;
             this.Size = minSize;
@@ -189,16 +200,23 @@ namespace ClickOpotamus
             if (_isFullSize)
             {
                 ResetWindow();
+                ShowLogLabel.Text = "Show Log";
             }
             else
             {
                 ExpandWindow();
+                ShowLogLabel.Text = "Hide Log";
             }
         }
 
         private void ShowLogLabel_Click(object sender, EventArgs e)
         {
             ResizeApp();
+        }
+        private void ClearLogsLbl_Click(object sender, EventArgs e)
+        {
+            _fileLogger.ClearLog();
+            UpdateLogListGUI();
         }
 
         // Saving to Log //
@@ -209,8 +227,15 @@ namespace ClickOpotamus
             StartButton.Enabled = true;
 
             Console.WriteLine("Save Log Here..");
-            Task.Run(() =>
+            PopulateLogGUI();
+
+        }
+
+        private void AppendToGui()
+        {
+            try
             {
+                // Append data to the log file
                 _fileLogger.AppendToFile(new Logger.ClickLog
                 {
                     Total = _clickLog.Total,
@@ -221,8 +246,44 @@ namespace ClickOpotamus
                     StartTime = _clickLog.StartTime,
                     EndTime = _clickLog.EndTime,
                 });
-            });
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that might occur while writing the file
+                Console.WriteLine($"Error logging data: {ex.Message}");
+            }
         }
+
+        private void PopulateLogGUI()
+        {
+            // Start the background task to log the data
+            Task.Run(() =>
+            {
+                AppendToGui();
+            })
+            .ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                {
+                    Console.WriteLine("Task failed: " + t.Exception?.Message);
+                }
+                else
+                {
+                    this.Invoke((Action)(() =>
+                    {
+                        UpdateLogListGUI();
+                    }));
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext()
+            );
+        }
+
+        private void UpdateLogListGUI()
+        {
+            LogDataGrid.DataSource = _fileLogger.dataList;
+
+        }
+
         private Logger.ClickLog FormatClickLog()
         {
             var log = new Logger.ClickLog
@@ -244,19 +305,8 @@ namespace ClickOpotamus
  
 Next steps
 
-Style
-
--Draw out bottom section design
--implement Bottom Section GUI Layout
--allow opening of log file or atleast link to location
--Feed Labels on STOP (right side)
--If saved, feed log to Log File. (left side)
-
-
--Implement LogFile display section with mock Data
--On Load -- Read from file and upate GUI
--On Save -- Also read from file to update.. (async??)
-
+-Avoid weird resize by keeping the width the same on expand / reset
+-should still keep min and max 
 
  */
 
