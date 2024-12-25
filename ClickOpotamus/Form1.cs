@@ -24,6 +24,9 @@ namespace ClickOpotamus
         private DateTime _startTime = new DateTime();
         private DateTime _endTime = new DateTime();
 
+        //
+        private Logger.ClickLog _clickLog = new Logger.ClickLog();
+
         // Init //
         public MainWindow()
         {
@@ -113,7 +116,36 @@ namespace ClickOpotamus
             StopButton.Enabled = false;
             StartButton.Enabled = true;
             SaveButton.Enabled = true;
+            FeedLogCard();
         }
+
+        private void FeedLogCard()
+        {
+            _clickLog = FormatClickLog();
+            Console.WriteLine("Ready to GUI");
+
+            TotalCountLbl.Text = _clickLog.Total.ToString();
+            LeftCountLbl.Text = _clickLog.LeftClicks.ToString();
+            RightCountLbl.Text = _clickLog.RightClicks.ToString();
+            MinAvgCountLbl.Text = _clickLog.MinAverage.ToString();
+            HourAvgCountLbl.Text = _clickLog.HourAverage.ToString();
+
+        }
+
+        /// <summary>
+        /// Write function here to reset the values of the LogCard
+        /// </summary>
+
+        /// <summary>
+        /// Write Function Here to clear the log
+        /// </summary>
+
+        /// <summary>
+        /// Bind Labael to open file.. in a new tread maybe??
+        /// </summary>
+
+
+
 
         // Window Resizing //
         private void RefactorLayout()
@@ -176,18 +208,18 @@ namespace ClickOpotamus
             StopButton.Enabled = false;
             StartButton.Enabled = true;
 
-            var log = FormatClickLog();
+            Console.WriteLine("Save Log Here..");
             Task.Run(() =>
             {
                 _fileLogger.AppendToFile(new Logger.ClickLog
                 {
-                    Total = log.Total,
-                    LeftClicks = log.LeftClicks,
-                    RightClicks = log.RightClicks,
-                    MinAverage = log.MinAverage,
-                    HourAverage = log.HourAverage,
-                    StartTime = log.StartTime,
-                    EndTime = log.EndTime,
+                    Total = _clickLog.Total,
+                    LeftClicks = _clickLog.LeftClicks,
+                    RightClicks = _clickLog.RightClicks,
+                    MinAverage = _clickLog.MinAverage,
+                    HourAverage = _clickLog.HourAverage,
+                    StartTime = _clickLog.StartTime,
+                    EndTime = _clickLog.EndTime,
                 });
             });
         }
@@ -198,8 +230,8 @@ namespace ClickOpotamus
                 Total = _totalMouseEvents,
                 LeftClicks = _leftClickCount,
                 RightClicks = _rightClickCount,
-                MinAverage = _totalMouseEvents / 60f,
-                HourAverage = _totalMouseEvents / 3600f,
+                MinAverage = (float)Math.Round(_totalMouseEvents / 60f, 3),
+                HourAverage = (float)Math.Round(_totalMouseEvents / 3600f, 3),
                 StartTime = _startTime.ToString("MM/dd/yy HH:mm:ss"),
                 EndTime = _endTime.ToString("MM/dd/yy HH:mm:ss"),
             };
