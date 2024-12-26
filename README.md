@@ -19,11 +19,6 @@ What I Learned
     Translating concepts from other languages like JavaScript to C#.
 
 This project helped me dive deeper into these concepts and see them in action.
-Getting Started
-Prerequisites
-
-    .NET 8.0 SDK (LTS) as of December 25, 2024.
-    A code editor or IDE such as Visual Studio or Visual Studio Code.
 
 Getting Started
 Prerequisites
@@ -42,15 +37,15 @@ Clone the Repository
 
 Running the Application
 
-    Restore dependencies:
+Restore dependencies:
 
-dotnet restore
-
-Build the project:
-
-dotnet build
-
-Run the application:
+    dotnet restore
+    
+    Build the project:
+    
+    dotnet build
+    
+    Run the application:
 
     dotnet run
 
@@ -61,5 +56,5 @@ Notes
 
 Wrap-Up
 
-This project was a fun experiment that turned into a useful tool for tracking click averages.
-Whether you're a gamer, a developer, or just curious about Windows Forms.
+    This project was a fun experiment that turned into a useful tool for tracking click averages.
+    Whether you're a gamer, a developer, or just curious about Windows Forms.
