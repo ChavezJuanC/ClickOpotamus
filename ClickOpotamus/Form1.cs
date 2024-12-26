@@ -175,22 +175,22 @@ namespace ClickOpotamus
 
         private void ResetWindow()
         {
-            Size minSize = new System.Drawing.Size(550, 250);
-            Size maxSize = new System.Drawing.Size(660, 320);
+            Size minSize = new Size(550, 250);
+            Size maxSize = new Size(660, 320);
             this.MinimumSize = minSize;
             this.MaximumSize = maxSize;
-            this.Size = minSize;
+            this.Height = 250;
             _isFullSize = false;
             RefactorLayout();
         }
 
         private void ExpandWindow()
         {
-            Size minSize = new System.Drawing.Size(550, 500);
-            Size maxSize = new System.Drawing.Size(660, 500);
+            Size minSize = new Size(550, 500);
+            Size maxSize = new Size(660, 500);
             this.MinimumSize = minSize;
             this.MaximumSize = maxSize;
-            this.Size = minSize;
+            this.Height = 500;
             _isFullSize = true;
             RefactorLayout();
         }
